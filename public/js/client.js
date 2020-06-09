@@ -1,7 +1,18 @@
 var socket = io('/');
 
+var msg = 0;
+
 function renderMessages(message) {
     $('.messages').append('<div class="message"><strong>' + message.apelido + ': </strong>'+ message.message +'</div>');
+
+    setTimeout(function() {
+        $('.message').each(function(i) {
+            $(this).css('transform', 'translate3d(0, 0, 0)');
+            $(this).css('opacity', 1);
+        });
+    },50);
+
+    msg++;
 }
 
 function scroll(tempo) {

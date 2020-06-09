@@ -31,7 +31,7 @@
             align-items: center;
             justify-content: center;
 
-            background-color: blue;
+            background-color: lightgray;
 
             width: 60%;
             height: 75%;
@@ -62,6 +62,8 @@
             height: 25px;
 
             transition: .1s ease-in-out;
+
+            outline: none;
         }
 
         .fundo button:hover {
@@ -72,15 +74,22 @@
             -o-transform: scale(1.05);
             transform: scale(1.05);
         }
+
+        .message {
+            transition: .2s ease-in-out;
+            opacity: 0;
+            transform: translate3d(-100px, 0, 0);
+            font-size: 15px;
+        }
     </style>
 </head>
 <body>
     <div class="fundo">
         <form class="form" id="form" method="POST">
             <label>Apelido:</label><br>
-            <input type="text" name="apelido" placeholder="Digite seu apelido"><br>
+            <input type="text" name="apelido" autocomplete="off" placeholder="Digite seu apelido"><br>
             <div class="messages"></div><br>
-            <input type="text" name="message" placeholder="Digite sua mensagem"><br>
+            <input type="text" name="message" autocomplete="off" placeholder="Digite sua mensagem"><br>
             <input type="submit" value="Enviar mensagem">
         </form>
 
