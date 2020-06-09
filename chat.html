@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .fundo {
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            width: 100%;
+            height: 100vh;
+
+            position: absolute;
+
+            top:0;
+            left:0;
+
+            background-color: red;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            background-color: blue;
+
+            width: 60%;
+            height: 75%;
+        }
+
+        .messages {
+            width: 75%;
+            height: 55%;
+            background-color: snow;
+        }
+    </style>
+</head>
+<body>
+    <div class="fundo">
+        <form class="form" method="POST">
+            <label>Apelido:</label><br>
+            <input type="text" name="apelido" placeholder="Digite seu apelido"><br>
+            <div class="messages"></div><br>
+            <input type="text" name="message" placeholder="Digite sua mensagem"><br>
+            <input type="submit" value="Enviar mensagem">
+        </form>
+    </div>
+</body>
+</html>
