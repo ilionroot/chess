@@ -1,4 +1,4 @@
-var socket = io('ws://devchess-com-br.umbler.net:3000/');
+var socket = io('/');
 
 function renderMessages(message) {
     $('.messages').append('<div class="message"><strong>' + message.apelido + ': </strong>'+ message.message +'</div>');
