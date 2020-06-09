@@ -41,18 +41,56 @@
             width: 75%;
             height: 55%;
             background-color: snow;
+        
+            padding: 10px;
+
+            border: none;
+            box-shadow: white 0 0 7.5px;
+            border-radius: 10px;
+
+            color: black;
+
+            overflow-y: auto;
+        }
+
+        .fundo button {
+            border: none;
+            border-radius: 10px;
+            background-color: lightgray;
+
+            width: 60%;
+            height: 25px;
+
+            transition: .1s ease-in-out;
+        }
+
+        .fundo button:hover {
+            background-color: lightseagreen;
+
+            -moz-transform: scale(1.05);
+            -webkit-transform: scale(1.05);
+            -o-transform: scale(1.05);
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
     <div class="fundo">
-        <form class="form" method="POST">
+        <form class="form" id="form" method="POST">
             <label>Apelido:</label><br>
             <input type="text" name="apelido" placeholder="Digite seu apelido"><br>
             <div class="messages"></div><br>
             <input type="text" name="message" placeholder="Digite sua mensagem"><br>
             <input type="submit" value="Enviar mensagem">
         </form>
+
+        <br>
+
+        <button>Limpar chat</button>
     </div>
+    
+    <script src="/js/jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/client.js"></script>
 </body>
 </html>
