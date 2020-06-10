@@ -21,11 +21,11 @@ const db = require('./models/db');
     
     app.get('/chat', (req, res) => {
         res.sendFile(__dirname + "/public/chat.html");
-    })
+    });
 
     app.get('/register', (req, res) => {
         res.sendFile(__dirname + "/public/pages/register.html")
-    })
+    });
 
     app.post('/register', async (req, res) => {
         var nome = req.body.nome;
