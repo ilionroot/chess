@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -40,7 +40,7 @@ const db = require('./models/db');
                 if( result ) { return result; }
             })
 
-            var Senha = await bcrypt.hash(senha,10);
+            //var Senha = await bcrypt.hash(senha,10);
 
             var user = {
                 user_name: nome,
