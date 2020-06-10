@@ -50,7 +50,7 @@ const io = require('socket.io')(server);
             genid: (req) => {
                 console.log('Inside the session middleware')
                 console.log(req.sessionID)
-                return uuid() // use UUIDs for session IDs
+                return uuid.v4(); // use UUIDs for session IDs
             },
             store: new FileStore(),
             secret: 'keyboard cat',
