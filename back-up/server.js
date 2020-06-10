@@ -51,7 +51,7 @@ const db = require('./models/db');
 
         socket.on('disconnect', function() {
             console.log('user ' + socket.id + " desconectado!");
-        })
+        });
     })
 
     app.post('/', (req, res) => {
