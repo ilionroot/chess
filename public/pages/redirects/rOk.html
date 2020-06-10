@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/banana.css">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="../img/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../img/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../img/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../img/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../img/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../img/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../img/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../img/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="../img/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../img/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/icons/favicon-16x16.png">
+    <link rel="manifest" href="../img/icons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="../img/icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#000000">
+
+    <title>All right! - DevChess</title>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+
+            display: flex;
+            flex-direction: column;
+
+            position: absolute;
+
+            top:0;
+            left:0;
+
+            width: 100%;
+            height: 100vh;
+
+            align-items: center;
+            justify-content: center;
+
+            background-color: snow;
+            overflow: hidden;
+        }
+
+        .err {
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            width: 60%;
+            height: 20%;
+
+            background-color: rgb(30, 197, 57);
+            border-radius: 500px;
+
+            color: snow;
+
+            transition: .5s ease-in;
+
+            opacity: 0;
+        }
+
+        .err a {
+            border: none;
+            height: 25px;
+
+            background-color: transparent;
+            
+            color: rgb(75, 75, 75);
+
+            text-decoration: none;
+
+            transition: .1s ease-in-out;
+
+            font-size: 15px;
+        }
+
+        .err a:hover {
+            -moz-transform: scale(1.075);
+            -webkit-transform: scale(1.075);
+            -o-transform: scale(1.075);
+            transform: scale(1.075);
+        }
+
+        @media screen and (max-width: 685px) {
+            .err h1 {
+                font-size: 20px;
+            }
+        }
+
+        @media screen and (max-width: 430px) {
+            .err h1 {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body onload="setTimeout(function() {
+    init();
+}, 250)">
+
+    <div id="error" class="err">
+        <h1>You have been successfully registered!</h1>
+        <a href="/login">Click to login</a><br>
+    </div>
+</body>
+
+<script type="text/javascript">
+    function init() {
+        var container = document.getElementById('error');
+
+        container.style.opacity = 1;
+    }
+</script>
+</html>
