@@ -15,6 +15,10 @@ const db = require('./models/db');
     app.get('/', (req, res) => {
         res.sendFile(__dirname + "/public/index.html");
     })
+    
+    app.get('/chat', (req, res) => {
+        res.sendFile(__dirname + "/public/chat.html");
+    })
 
     app.get('/register', (req, res) => {
         res.sendFile(__dirname + "/public/pages/register.html")
