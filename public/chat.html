@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevChess</title>
+    <link rel="stylesheet" href="css/pageStyles/chatStyle.css">
+    <link rel="stylesheet" href="css/navStyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="57x57" href="img/icons/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/icons/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/icons/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/icons/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/icons/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/icons/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="img/icons/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/icons/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/icons/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="img/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="img/icons/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/icons/favicon-16x16.png">
+    <link rel="manifest" href="img/icons/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="img/icons/ms-icon-144x144.png">
+    <meta name="theme-color" content="#000000">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="img/iconWhite.png" width="25px" height="25px" alt="pageIcon">
+            <h4>DevChess</h4>
+        </div>
+        <ul class="nav-linker">
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="#">Jogar</a>
+            </li>
+            <li>
+                <a href="/chat" style="color: gray;">Chat</a>
+            </li>
+            <li>
+                <a href="#">Ajuda</a>
+            </li>
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+    <div class="fundo">
+        <form class="form" id="form" method="POST">
+            <label class="formTitle">Apelido:</label>
+            <input type="text" name="apelido" autocomplete="off" placeholder=" Digite seu apelido" class="textCamp nickname"><br>
+            <div class="messages"></div><br>
+            <input type="text" name="message" autocomplete="off" placeholder=" Digite sua mensagem" class="textCamp chatMessage"><br>
+            <input type="submit" value="Enviar mensagem">
+        </form>
+        <br>
+        <button>Limpar chat</button>
+    </div>
+    <script src="/js/jquery.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/client.js"></script>
+    <script src="js/navAnimation.js"></script>
+</body>
+</html>
