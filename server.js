@@ -80,11 +80,6 @@ const io = require('socket.io')(server);
     app.get('/', (req, res) => {
         res.sendFile(__dirname + "/public/index.html");
     })
-
-    app.post('/', (req, res) => {
-        req.logOut();
-        res.redirect('/');
-    })
     
     app.get('/chat', authenticationMiddleware, (req, res) => {
         res.sendFile(__dirname + "/public/chat.html");
@@ -135,7 +130,7 @@ const io = require('socket.io')(server);
             res.sendFile(__dirname + "/public/pages/login.html");
     });
 
-    app.post('/login/:redirect', passport.authenticate('local', { failureRedirect: '/login?fail=true' }), (req, res) => {
+    app.post('/login/', passport.authenticate('local', { failureRedirect: '/login?fail=true' }), (req, res) => {
         res.redirect('/');
     })
 

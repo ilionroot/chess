@@ -42,6 +42,12 @@
                 <a href="/chat" style="color: gray;">Chat</a>
             </li>
             <li>
+                <a href="/register">Registrar</a>
+            </li>
+            <li>
+                <a href="/login">Logar</a>
+            </li>
+            <li>
                 <a href="#">Ajuda</a>
             </li>
         </ul>
@@ -56,8 +62,10 @@
             <label class="formTitle">Apelido:</label>
             <input type="text" name="apelido" autocomplete="off" placeholder=" Digite seu apelido" class="textCamp nickname"><br>
             <div class="messages"></div><br>
-            <input type="text" name="message" autocomplete="off" placeholder=" Digite sua mensagem" class="textCamp chatMessage"><br>
-            <input type="submit" value="Enviar mensagem">
+            <div class="linhaDirection">
+            <input type="text" name="message" autocomplete="off" placeholder=" Digite sua mensagem" class="textCamp chatMessage">
+            <input type="submit" value="" class="sendButton">
+            </div>
         </form>
         <br>
         <button>Limpar chat</button>
