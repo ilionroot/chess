@@ -121,7 +121,7 @@ const io = require('socket.io')(server);
         } else {
             res.sendFile(__dirname + "/public/pages/errors/passwords.html");
         }
-    })
+    });
 
     app.get('/login', (req, res) => {
         if(req.query.fail)
