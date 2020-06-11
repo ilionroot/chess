@@ -42,11 +42,10 @@ const io = require('socket.io')(server);
                     return done(null, false, { message: 'Incorrect username!' });
                 }
     
-                const decipher = crypto.createDecipher(DADOS_CRIPTOGRAFAR.algorithm,DADOS_CRIPTOGRAFAR.secret);
-                decipher.update(user.user_password, DADOS_CRIPTOGRAFAR.tipo);
-                var senhar = decipher.final();
+                cipher.update(password);
+                var senha = cipher.final(DADOS_CRIPTOGRAFAR.tipo);
 
-                if (password === senhar) { console.log('Logou!'); return done(false,user, { message: 'Logou!' }) }
+                if (user.user_password === senha) { console.log('Logou!'); return done(false,user, { message: 'Logou!' }) }
                 else {
                     console.log('INCORRECT PASSWORD!');
                     return done(null, false, { message: 'Incorrect PASSWORD!' });
