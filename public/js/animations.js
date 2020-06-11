@@ -49,5 +49,5 @@ $(document).ready(function(){
     setTimeout(()=>{
         $('#divSpin').css('animation', '');
         $('#divTD').css('display','none');
-    },1500);
+    },1800);
 });
