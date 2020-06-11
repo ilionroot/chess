@@ -13,6 +13,7 @@ function loading() {
     
     var divTD = document.createElement('div');
     divTD.setAttribute('id','divTD')
+    $(divTD).css('position','fixed');
     $(divTD).css('background-color', 'rgba(255, 255, 255, 0.35)');
     $(divTD).css('display', 'flex');
     $(divTD).css('flex-direction', 'column');
@@ -20,13 +21,13 @@ function loading() {
     $(divTD).css('justify-content', 'center');
     $(divTD).css('height', '100vh');
     $(divTD).css('width', '100%');
-    $(divTD).css('position', 'absolute');
     $(divTD).css('top', '0');
     $(divTD).css('left', '0');
     $(divTD).css('z-index', '9999');
 
     var divSpin = document.createElement('div');
     divSpin.setAttribute('id','divSpin')
+    $(divSpin).css('position', 'fixed');
     $(divSpin).css('width', '60px');
     $(divSpin).css('height', '60px');
     $(divSpin).css('border', '8px solid rgba(0, 0, 0, 0.2)');
