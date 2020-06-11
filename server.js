@@ -8,7 +8,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const bodyParser = require('body-parser');
 const User = require('./models/User');
-const bcrypt = require('bcrypt');
+const crypt = require('./public/js/crypto');
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -34,7 +34,9 @@ const io = require('socket.io')(server);
                     return done(null, false, { message: 'Incorrect username!' });
                 }
 
-                if (bcrypt.compare(password, user.user_password)) { console.log('Logou!'); return done(false,user, { message: 'Logou!' }) }
+                var senha = crypt.crypt(password);
+
+                if (senha === user.user_password) { console.log('Logou!'); return done(false,user, { message: 'Logou!' }) }
                 else {
                     console.log('INCORRECT PASSWORD!');
                     return done(null, false, { message: 'Incorrect PASSWORD!' });
@@ -103,7 +105,8 @@ const io = require('socket.io')(server);
                 }
             }).then(async result => {
                 if(!result) {
-                    senha = await bcrypt.hash(senha, 10);
+                    senha = crypt.crypt(senha);
+                    console.log(senha + " eu sou o Igor");
 
                     User.create({
                         user_name: nome,
