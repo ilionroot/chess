@@ -8,8 +8,15 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
 const User = require('./models/User');
+
+const crypto = require('crypto');
+const DADOS_CRIPTOGRAFAR = {
+    algorithm : "aes256",
+    secret : "keys",
+    tipo : "hex"
+};
+const cipher = crypto.createCipher(DADOS_CRIPTOGRAFAR.algorithm, DADOS_CRIPTOGRAFAR.secret);
 
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -35,7 +42,11 @@ const io = require('socket.io')(server);
                     return done(null, false, { message: 'Incorrect username!' });
                 }
     
-                if (bcrypt.compareSync(password,user.user_password)) { console.log('Logou!'); return done(false,user, { message: 'Logou!' }) }
+                const decipher = crypto.createDecipher(DADOS_CRIPTOGRAFAR.algorithm,DADOS_CRIPTOGRAFAR.secret);
+                decipher.update(user.user_password, DADOS_CRIPTOGRAFAR.tipo);
+                var senhar = decipher.final();
+
+                if (password === senhar) { console.log('Logou!'); return done(false,user, { message: 'Logou!' }) }
                 else {
                     console.log('INCORRECT PASSWORD!');
                     return done(null, false, { message: 'Incorrect PASSWORD!' });
@@ -104,7 +115,8 @@ const io = require('socket.io')(server);
                 }
             }).then(async result => {
                 if(!result) {
-                    senha = await bcrypt.hash(senha, 10);
+                    cipher.update(senha);
+                    senha = cipher.final(DADOS_CRIPTOGRAFAR.tipo);
 
                     User.create({
                         user_name: nome,
