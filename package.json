@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --ignore sessions/ server.js",
+    "start": "node server.js",
     "dev": "nodemon --ignore sessions/ server.js"
   },
   "repository": {
