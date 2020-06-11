@@ -2,13 +2,13 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const uuid = require('uuid');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const FileStore = require('session-file-store')(session);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 const User = require('./models/User');
 
 const server = require('http').createServer(app);
@@ -20,52 +20,73 @@ const io = require('socket.io')(server);
         app.use(bodyParser.urlencoded({ extended: false }));
 
     // Passport
-        passport.use(new LocalStrategy(
-            { usernameField: 'email' },
-            (email, password, done) => {
-            console.log('Inside local strategy callback')
-            // here is where you make a call to the database
-            // to find the user based on their username or email address
-            // for now, we'll just pretend we found that it was users[0]
-            if(email === ('conexao-com-o-banco') && password === ('conexao-com-o-banco')) {
-                console.log('Local strategy returned true')
-                return done(null, user)
+        app.use(cookieParser());
+
+        passport.use(new LocalStrategy({
+            usernameField: 'email',
+            passwordField: 'senha'
+        }, function(username,password,done) {
+            console.log(username);
+
+            User.findOne( { where: { user_email: username } }).then(user=>{
+                console.log('isso eh um callback');
+
+                if ( !user ) {
+                    return done(null, false, { message: 'Incorrect username!' });
+                }
+    
+                if (password === user.user_password) { console.log('Logou!'); return done(false,user, { message: 'Logou!' }) }
+                else {
+                    console.log('INCORRECT PASSWORD!');
+                    return done(null, false, { message: 'Incorrect PASSWORD!' });
+                }
             }
-            }
-        ));
+            )
+            .catch(err=>{ return done(err); })
+        }));
 
         passport.serializeUser((user, done) => {
-            console.log('Inside serializeUser callback. User id is save to the session file store here')
-            done(null, user.id);
-          });
+            done(null, user.user_id);
+        })
 
         passport.deserializeUser((id, done) => {
-            console.log('Inside deserializeUser callback')
-            console.log(`The user id passport saved in the session file store is: ${id}`)
-            const user = users[0].id === id ? users[0] : false; 
-            done(null, user);
+            User.findOne( {where:{user_id: id}}).then(user=>{
+                done(null, user.user_id);
+            }).catch(err=>{
+                done(err);
+            })
         });
+
+        const authenticationMiddleware = (req, res, next) => {  
+            if (req.isAuthenticated()) {
+                return next();
+            }
+
+            res.redirect('/login?fail=true');
+        }
     // Session
-        app.use(session({
-            genid: (req) => {
-                console.log('Inside the session middleware')
-                console.log(req.sessionID)
-                return uuid.v4(); // use UUIDs for session IDs
-            },
-            store: new FileStore(),
+        app.use(session({ 
+            maxAge: 1000 * 60 * 60 *  2,
             secret: 'keyboard cat',
             resave: false,
             saveUninitialized: true
-        }))
-
+        }), (req, res, next) => {
+            next();
+        });
         app.use(passport.initialize());
         app.use(passport.session());
+
 // Rotas
     app.get('/', (req, res) => {
         res.sendFile(__dirname + "/public/index.html");
     })
+
+    app.post('/', (req, res) => {
+        req.logOut();
+        res.redirect('/');
+    })
     
-    app.get('/chat', (req, res) => {
+    app.get('/chat', authenticationMiddleware, (req, res) => {
         res.sendFile(__dirname + "/public/chat.html");
     });
 
@@ -85,7 +106,7 @@ const io = require('socket.io')(server);
                 }
             }).then(async result => {
                 if(!result) {
-                    senha = await bcrypt.hash(senha, 10);
+                    //senha = await bcrypt.hash(senha, 10);
 
                     User.create({
                         user_name: nome,
@@ -108,38 +129,14 @@ const io = require('socket.io')(server);
     })
 
     app.get('/login', (req, res) => {
-        res.sendFile(__dirname + "/public/pages/login.html");
+        if(req.query.fail)
+            res.sendFile(__dirname + "/public/pages/login.html", { message: 'Usuário e/ou senha incorretos!' });
+         else
+            res.sendFile(__dirname + "/public/pages/login.html");
     });
 
-    app.post('/login', (req, res) => {
-        var email = req.body.email;
-        var senha = req.body.senha;
-
-        User.findOne({
-            where: {
-                user_email: email
-            }
-        }).then(result=>{
-            if(result && bcrypt.compareSync(senha , result.user_password)) {
-                res.send("You have been logged!<a href='/'>Click to back to menu!</a>");
-            } else {
-                res.send("User does not EXISTS<br><a href'/login'>Click to go to MENU!</a>");
-            }
-        }).catch(err=>{
-            throw err;
-        })
-
-        passport.authenticate('local', (err, user, info) => {
-            console.log('Inside passport.authenticate() callback');
-            console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`)
-            console.log(`req.user: ${JSON.stringify(req.user)}`)
-            req.login(user, (err) => {
-              console.log('Inside req.login() callback')
-              console.log(`req.session.passport: ${JSON.stringify(req.session.passport)}`)
-              console.log(`req.user: ${JSON.stringify(req.user)}`)
-              return res.send('You were authenticated & logged in!\n');
-            })
-        })(req, res, next);
+    app.post('/login/:redirect', passport.authenticate('local', { failureRedirect: '/login?fail=true' }), (req, res) => {
+        res.redirect('/');
     })
 
     let messages = [];
@@ -158,10 +155,6 @@ const io = require('socket.io')(server);
             console.log('user ' + socket.id + " desconectado!");
         })
     });
-
-    app.get('/chat', (req, res) => {
-        res.sendFile(__dirname + "/chat.html");
-    })
 
     app.get('/register/ok', (req, res) => {
         res.sendFile(__dirname + "/public/pages/redirects/rOk.html");

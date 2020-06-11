@@ -1,7 +1,5 @@
 var socket = io('/');
 
-var msg = 0;
-
 function renderMessages(message) {
     $('.messages').append('<div class="message"><strong>' + message.apelido + ': </strong>'+ message.message +'</div>');
 
@@ -11,8 +9,6 @@ function renderMessages(message) {
             $(this).css('opacity', 1);
         });
     },50);
-
-    msg++;
 }
 
 function scroll(tempo) {
