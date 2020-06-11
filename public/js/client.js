@@ -23,6 +23,10 @@ socket.on('previousMessages', messages => {
     scroll(250);
 });
 
+socket.on('apelidoUser', apelido => {
+    $('#apel').val(apelido);
+})
+
 socket.on('receivedMessage', data => {
     renderMessages(data);
     scroll(1000);

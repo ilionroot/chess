@@ -98,7 +98,8 @@
 }
 
 .linhaDirection .chatMessage {
-    width: 30em;
+    width: 20em;
+    padding-left: 10px;
 }
 
 .sendButton {
@@ -108,4 +109,11 @@
     border-bottom-right-radius: 10px;
     width: 32px;
     height: 32px;
+}
+
+@media screen and (max-width:665px) {
+    .chatMessage {
+        width: 15em;
+        padding-left: 10px;
+    }
 }

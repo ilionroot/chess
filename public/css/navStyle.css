@@ -13,6 +13,10 @@ nav{
     justify-content: space-around;
     align-items: center;
     min-height: 8vh;
+
+    position: fixed;
+    width: 100%;
+
     background-color: black;
     font-family: 'Roboto', sans-serif;
 }
@@ -28,12 +32,16 @@ nav{
 
 .nav-linker{
     display:flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 40%;
 }
 
 .nav-linker li{
     list-style: none;
+}
+
+.lis li {
+    margin-top: -50px;
 }
 
 .nav-linker a{
@@ -59,7 +67,7 @@ nav{
 
 @media screen and (max-width:1024px){
     .nav-linker{
-       width: 60%;
+        width: 0;
     }
 }
 
@@ -69,16 +77,15 @@ nav{
     }
 
     .nav-linker{
-        position: absolute;
+        position: fixed;
         right: 0px;
-        height: 92vh;
+        width: 0;
+        height: 100vh;
         top: 8vh;
         background-color:black;
         flex-direction: column;
         align-items: center;
-        width: 45%;
-        transform: translateX(100%);
-        transition: transform 0.5s ease-in;
+        transition: .5s ease-in-out;
     }
     .nav-linker li{
         opacity: 0;
@@ -87,20 +94,26 @@ nav{
     .burger{
         display:block;
     }
+
+    .nav-active{
+        width: 200px;
+    }
 }
 
-.nav-active{
-    transform: translateX(0%);
+@media screen and (max-width:550px) {
+    .nav-active{
+        width: 165px;
+    }
 }
 
 @keyframes navLinkAnimation{
     from{
         opacity: 0;
-        transform: translateX(50px);
+        width: 0;
     }
     to{
         opacity: 1;
-        transform: translateX(0px);
+        width: 50px;
     }
 }
 

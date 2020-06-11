@@ -81,12 +81,15 @@ const io = require('socket.io')(server);
         res.sendFile(__dirname + "/public/index.html");
     })
     
+    var userC;
+
     app.get('/chat', authenticationMiddleware, (req, res) => {
         res.sendFile(__dirname + "/public/chat.html");
+        userC = req.user;
     });
 
     app.get('/register', (req, res) => {
-        res.sendFile(__dirname + "/public/pages/register.html")
+        res.sendFile(__dirname + "/public/pages/register.html");
     });
 
     app.post('/register', (req, res) => {
@@ -137,6 +140,18 @@ const io = require('socket.io')(server);
     let messages = [];
 
     io.on('connection', socket => {
+
+        if(userC != null) {
+            User.findOne({
+                where: {
+                    user_id: userC
+                }
+            }).then(data=>{
+                socket.emit('apelidoUser', data.user_name);
+            }).catch(err=>{
+                throw err;
+            })
+        }
 
         socket.emit('previousMessages', messages);
 
