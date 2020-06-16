@@ -179,6 +179,6 @@ const io = require('socket.io')(server);
         res.sendFile(__dirname + "/public/pages/redirects/rOk.html");
     })
     
-server.listen(3000, () => {
+server.listen(process.env.PORT || 3000, () => {
     console.log('Server rodando!');
 });
