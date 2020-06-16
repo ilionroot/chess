@@ -67,7 +67,9 @@ const io = require('socket.io')(server);
         }
     // Session
         app.use(session({ 
-            maxAge: 1000 * 60 * 60 *  2,
+             cookie: {
+            	maxAge: 1000 * 60 * 60 *  2,
+             },
             secret: 'keyboard cat',
             resave: false,
             saveUninitialized: true
@@ -141,7 +143,12 @@ const io = require('socket.io')(server);
 
     let messages = [];
 
+    let code = [];
+
     io.on('connection', socket => {
+        console.log('Usuario: ' + socket.id + " conectou!");
+
+        // Chat
 
         if(userC != null) {
             User.findOne({
@@ -171,7 +178,7 @@ const io = require('socket.io')(server);
     app.get('/register/ok', (req, res) => {
         res.sendFile(__dirname + "/public/pages/redirects/rOk.html");
     })
-
+    
 server.listen(3000, () => {
     console.log('Server rodando!');
 });

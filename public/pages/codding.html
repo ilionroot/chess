@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Codding</title>
+
+    <style>
+        body {
+            background: lightgray;
+        }
+
+        .text {
+            position: absolute;
+            top:0;
+            left:0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            width: 70%;
+            height: 70vh;
+
+            padding-left: 10px;
+            padding-top: 10px;
+
+            background-color: snow;
+        }
+    </style>
+</head>
+<body>
+    <input class="text" id="code" multi-line>
+    <button onclick="keydown()">Enviar</button>
+<script src="/socket.io/socket.io.js"></script>
+
+<script type="text/javascript">
+    var socket = io('/codding');
+
+    socket.on('receivedCode', data=>{
+       document.getElementById('code').value += data;
+    });
+
+    function keydown() {
+        var text = document.getElementById('code').value;
+
+        var obj = {
+            text: text
+        }
+
+        setTimeout(function() {
+            socket.emit('sendCode', obj);
+        },1000);
+        
+        console.log(obj.text);
+    }
+</script>
+</body>
+</html>
